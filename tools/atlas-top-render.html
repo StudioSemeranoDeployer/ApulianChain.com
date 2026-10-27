@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        html, body { margin: 0; padding: 0; background: transparent; }
+        canvas { display: block; }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../assets/vendor/three/three.module.min.js",
+                "three/addons/": "../assets/vendor/three/addons/"
+            }
+        }
+    </script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const WIDTH = 2000;
+const HEIGHT = 1496;
+
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true,
+    preserveDrawingBuffer: true,
+    powerPreference: 'high-performance'
+});
+renderer.setPixelRatio(1);
+renderer.setSize(WIDTH, HEIGHT, false);
+renderer.setClearColor(0x000000, 0);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.08;
+renderer.domElement.setAttribute('aria-hidden', 'true');
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+pmrem.dispose();
+scene.add(new THREE.AmbientLight(0xa9c8ff, 0.55));
+const keyLight = new THREE.DirectionalLight(0x8fd6ff, 2.2);
+keyLight.position.set(3.4, 5.2, 2.4);
+scene.add(keyLight);
+const rimLight = new THREE.DirectionalLight(0x8b5cf6, 1.4);
+rimLight.position.set(-4.2, 2.4, -3.2);
+scene.add(rimLight);
+
+const [shape, texture] = await Promise.all([
+    fetch('../assets/data/puglia-shape.json').then((r) => r.json()),
+    new Promise((resolve) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => resolve(null);
+        image.src = '../img/opt/puglia-texture.webp';
+    })
+]);
+
+const W = 2.52;
+const H = W / (shape.aspect || 1.337);
+const points = shape.points.map(([u, v]) => new THREE.Vector2((u - 0.5) * W, (0.5 - v) * H));
+const pugliaShape = new THREE.Shape(points);
+
+const bodyGeometry = new THREE.ExtrudeGeometry(pugliaShape, {
+    steps: 1,
+    depth: 0.14,
+    bevelEnabled: true,
+    bevelThickness: 0.014,
+    bevelSize: 0.014,
+    bevelSegments: 3,
+    curveSegments: 1
+});
+bodyGeometry.rotateX(-Math.PI / 2);
+bodyGeometry.computeBoundingBox();
+const topY = bodyGeometry.boundingBox.max.y + 0.004;
+
+const bodyMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0x0a1119,
+    metalness: 0.62,
+    roughness: 0.3,
+    clearcoat: 1,
+    clearcoatRoughness: 0.2,
+    envMapIntensity: 0.5
+});
+scene.add(new THREE.Mesh(bodyGeometry, bodyMaterial));
+
+const topGeometry = new THREE.ShapeGeometry(pugliaShape, 1);
+const positions = topGeometry.attributes.position;
+const uvs = new Float32Array(positions.count * 2);
+for (let i = 0; i < positions.count; i += 1) {
+    const x = positions.getX(i);
+    const y = positions.getY(i);
+    uvs[i * 2] = (x + W / 2) / W;
+    uvs[i * 2 + 1] = (y + H / 2) / H;
+}
+topGeometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+topGeometry.rotateX(-Math.PI / 2);
+
+const topMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    toneMapped: false
+});
+if (texture) {
+    const map = new THREE.Texture(texture);
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    map.needsUpdate = true;
+    topMaterial.map = map;
+} else {
+    topMaterial.color = new THREE.Color(0x0c2a45);
+}
+const top = new THREE.Mesh(topGeometry, topMaterial);
+top.position.y = topY;
+scene.add(top);
+
+const rimPoints = points.map((point) => new THREE.Vector3(point.x, topY + 0.002, -point.y));
+const rim = new THREE.LineLoop(
+    new THREE.BufferGeometry().setFromPoints(rimPoints),
+    new THREE.LineBasicMaterial({
+        color: new THREE.Color(0xc7a76a).multiplyScalar(1.25),
+        transparent: true,
+        opacity: 0.58,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+    })
+);
+scene.add(rim);
+
+// Slim gold orbits, fitted inside the orthographic crop so they never clip.
+const ringGroup = new THREE.Group();
+ringGroup.position.y = topY - 0.02;
+const gold = new THREE.Color(0xc7a76a).multiplyScalar(1.15);
+[
+    { rx: 1.216, ry: 0.9, width: 0.0016, opacity: 0.5 },
+    { rx: 1.145, ry: 0.858, width: 0.0009, opacity: 0.26 }
+].forEach(({ rx, ry, width, opacity }) => {
+    const ring = new THREE.Mesh(
+        new THREE.RingGeometry(0.998, 0.998 + width, 320),
+        new THREE.MeshBasicMaterial({
+            color: gold,
+            transparent: true,
+            opacity,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            side: THREE.DoubleSide
+        })
+    );
+    ring.rotation.x = -Math.PI / 2;
+    ring.scale.set(rx, ry, 1);
+    ringGroup.add(ring);
+});
+scene.add(ringGroup);
+
+// Soft blue pool under the atlas.
+const glowCanvas = document.createElement('canvas');
+glowCanvas.width = glowCanvas.height = 512;
+const glowContext = glowCanvas.getContext('2d');
+const gradient = glowContext.createRadialGradient(256, 256, 0, 256, 256, 256);
+gradient.addColorStop(0, 'rgba(56, 189, 248, 0.22)');
+gradient.addColorStop(0.45, 'rgba(56, 189, 248, 0.10)');
+gradient.addColorStop(1, 'rgba(56, 189, 248, 0)');
+glowContext.fillStyle = gradient;
+glowContext.fillRect(0, 0, 512, 512);
+const glowTexture = new THREE.CanvasTexture(glowCanvas);
+glowTexture.colorSpace = THREE.SRGBColorSpace;
+const pool = new THREE.Mesh(
+    new THREE.PlaneGeometry(4.4, 4.4),
+    new THREE.MeshBasicMaterial({
+        map: glowTexture,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+    })
+);
+pool.rotation.x = -Math.PI / 2;
+pool.position.y = -0.04;
+scene.add(pool);
+
+// Straight top-down orthographic view. The image preserves the exact crop
+// mapping used by puglia-shape.json, so overlay pins share the same UV space.
+const camera = new THREE.OrthographicCamera(-W / 2, W / 2, H / 2, -H / 2, 0.01, 20);
+camera.position.set(0, 6, 0);
+camera.up.set(0, 0, -1);
+camera.lookAt(0, 0, 0);
+
+renderer.render(scene, camera);
+
+window.__atlasDataUrl = renderer.domElement.toDataURL('image/png');
+window.__atlasReady = true;
+</script>
+</body>
+</html>

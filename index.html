@@ -3,34 +3,2337 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="./img/favico.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ApulianChain - Hub Tech Pugliese</title>
+    <link rel="icon" type="image/png" href="./img/opt/favicon.png" />
+    <link rel="apple-touch-icon" href="./img/opt/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fbf8f2" />
+    <title>ApulianChain — Puglia, Terra Digitale | Blockchain, AI &amp; Heritage</title>
     <meta name="description"
-        content="Il primo ecosistema che unisce Blockchain, AI e Heritage per formare i leader di domani in Puglia." />
+        content="Il primo ecosistema che unisce Blockchain, AI e Heritage per formare i leader di domani in Puglia. Una rete diffusa di sette hub, percorsi formativi e community." />
     <meta name="keywords" content="Blockchain, AI, Puglia, Formazione, Innovazione, Tech Hub, ApulianChain" />
     <meta name="author" content="ApulianChain Team" />
-    <meta property="og:title" content="ApulianChain - Hub Tech Pugliese" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content="ApulianChain — Puglia, Terra Digitale" />
     <meta property="og:description"
-        content="Il primo ecosistema che unisce Blockchain, AI e Heritage per formare i leader di domani in Puglia." />
-    <meta property="og:image" content="./img/favico.png" />
+        content="Blockchain, AI e Heritage per formare i leader di domani. Una rete viva di sette hub che attraversa tutta la Puglia." />
+    <meta property="og:image" content="https://apulianchain.com/img/opt/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content="https://apulianchain.com" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ApulianChain — Puglia, Terra Digitale" />
+    <meta name="twitter:description" content="Blockchain, AI e Heritage. Sette hub, una rete viva in Puglia." />
+    <meta name="twitter:image" content="https://apulianchain.com/img/opt/og-cover.jpg" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <script type="module" crossorigin src="./assets/index-0dd14c5e.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/vendor-d929c8c2.js">
-  <link rel="stylesheet" href="./assets/index-46a72c3d.css">
+
+    <!-- Tailwind CSS (CDN con configurazione personalizzata identica al tema) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        },
+                        pulsate: {
+                            '0%': { transform: 'scale(0.1)', opacity: '0' },
+                            '50%': { opacity: '0.8' },
+                            '100%': { transform: 'scale(1.2)', opacity: '0' }
+                        }
+                    },
+                    animation: {
+                        blob: 'blob 7s infinite',
+                        scroll: 'scroll 40s linear infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Stili Custom e Animazioni -->
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        section {
+            scroll-margin-top: 100px;
+        }
+
+        /* Lightbox transitions */
+        #lightboxModal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #lightboxModal.hidden-lightbox {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #lightboxModal.active-lightbox {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+    </style>
+
+    <!-- GSAP locale per le animazioni d'ingresso -->
+    <script src="./assets/vendor/gsap/gsap.min.js"></script>
+
+    <!-- Firebase SDK v10 (Compat / CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Three.js locale (0.170.0) per l'Atlante Luminoso -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./assets/vendor/three/three.module.min.js",
+                "three/addons/": "./assets/vendor/three/addons/"
+            }
+        }
+    </script>
+
+    <!-- Finiture premium: design system, atlante 2D/3D, tipografia -->
+    <link rel="stylesheet" href="./assets/css/premium.css">
+
+    <!-- Moduli della pagina -->
+    <script type="module" src="./assets/js/hero-3d.js"></script>
+    <script type="module" src="./assets/js/network-map.js"></script>
 </head>
 
-<body>
-    <div id="root"></div>
-    
+<body class="bg-white text-stone-900 font-sans antialiased selection:bg-sky-400 selection:text-white">
+
+    <!-- ========================================================== -->
+    <!-- 1. HEADER / NAVBAR                                         -->
+    <!-- ========================================================== -->
+    <header id="mainHeader" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6">
+            <nav id="navBar" class="ac-nav">
+                <a href="#" class="ac-logo" aria-label="ApulianChain — torna all'inizio">
+                    <img src="./img/opt/logo-nav.webp" alt="ApulianChain" class="ac-logo-img" width="640" height="102">
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden lg:flex items-center gap-3 xl:gap-6">
+                    <a href="#corsi">Corsi</a>
+                    <a href="#eventi">Eventi</a>
+                    <a href="#galleria">Galleria</a>
+                    <a href="#network">Network</a>
+                    <a href="#team">Team</a>
+                    <a href="#contatti">Contatti</a>
+                    <a href="https://apulianchain.blogspot.com/" target="_blank" rel="noopener noreferrer"
+                        class="ac-btn ac-btn-primary ac-btn-sm">
+                        Apulian Blog
+                    </a>
+
+                    <!-- Area Riservata (Desktop) -->
+                    <div id="desktopAuthStatus">
+                        <button onclick="openAuthModal()" class="ac-btn ac-btn-secondary ac-btn-sm" title="Accedi all'area riservata">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                            <span>Area Riservata</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden text-stone-700 p-2 w-10 flex justify-end" aria-label="Apri il menu">
+                    <svg id="hamburgerIcon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden absolute top-full left-0 w-full p-4 lg:hidden">
+            <div class="glass rounded-3xl p-6 flex flex-col gap-3 shadow-2xl bg-white/95 border border-stone-200">
+                <a href="#corsi" onclick="closeMobileMenu()" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Corsi</a>
+                <a href="#eventi" onclick="closeMobileMenu()" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Eventi</a>
+                <a href="#galleria" onclick="closeMobileMenu()" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Galleria</a>
+                <a href="#network" onclick="closeMobileMenu()" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Network</a>
+                <a href="#team" onclick="closeMobileMenu()" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Team</a>
+                <a href="#contatti" onclick="closeMobileMenu()" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Contatti</a>
+                <a href="https://apulianchain.blogspot.com/" target="_blank" rel="noopener noreferrer" class="text-base font-medium text-stone-800 py-2.5 border-b border-stone-100">Apulian Blog</a>
+                
+                <div id="mobileAuthStatus" class="pt-2">
+                    <button onclick="closeMobileMenu(); openAuthModal()" class="ac-btn ac-btn-primary w-full">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        Area Riservata (Accedi)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ========================================================== -->
+        <!-- ========================================================== -->
+        <!-- 2. HERO — ATLANTE LUMINOSO                                 -->
+        <!-- ========================================================== -->
+        <section class="ac-hero relative pt-36 md:pt-40 lg:pt-44 pb-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 items-center">
+
+                    <!-- Colonna Sinistra: Testi Hero -->
+                    <div class="lg:col-span-6 xl:col-span-7 ac-hero-copy text-center lg:text-left">
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-7">
+                            <span class="ac-eyebrow"></span>
+                            <a class="ac-chip ac-chip-live ac-chip-link" href="https://forms.gle/kfbiZCwakfvsMLh8A" target="_blank" rel="noopener noreferrer" aria-label="Apri il form delle iscrizioni 2027 (si apre in una nuova scheda)">
+                                <span class="ac-chip-dot"></span> Iscrizioni 2027 aperte
+                                <svg class="ac-chip-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"></path></svg>
+                            </a>
+                        </div>
+
+                        <h1 class="font-serif text-5xl md:text-6xl xl:text-7xl font-medium text-stone-900 mb-7">
+                            Puglia,<br>
+                            <em class="italic pr-2">Terra Digitale.</em>
+                        </h1>
+
+                        <p class="ac-hero-lead mx-auto lg:mx-0">
+                            Il primo ecosistema che unisce <b>Blockchain</b>, <b>AI</b> e <b>Heritage</b> per formare i leader di domani. Una rete viva di hub, persone e imprese che attraversa tutta la Puglia.
+                        </p>
+
+                        <!-- Social Icons -->
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4 mt-8 mb-10">
+                            <a href="https://www.linkedin.com/company/apulianchain" target="_blank" rel="noopener noreferrer"
+                                class="ac-social flex items-center justify-center w-11 h-11" title="LinkedIn" aria-label="ApulianChain su LinkedIn">
+                                <div class="text-[#0077B5]">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.58c-1.14 0-2.06-.93-2.06-2.06 0-1.14.92-2.06 2.06-2.06s2.06.92 2.06 2.06c0 1.13-.92 2.06-2.06 2.06zM20.45 20.45h-3.56v-5.6c0-1.34-.03-3.05-1.85-3.05-1.85 0-2.14 1.45-2.14 2.95v5.7h-3.56V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/></svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/apulianchain" target="_blank" rel="noopener noreferrer"
+                                class="ac-social flex items-center justify-center w-11 h-11" title="Instagram" aria-label="ApulianChain su Instagram">
+                                <div class="text-[#E4405F]">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                </div>
+                            </a>
+                            <a href="https://t.me/apulianchain" target="_blank" rel="noopener noreferrer"
+                                class="ac-social flex items-center justify-center w-11 h-11" title="Telegram" aria-label="ApulianChain su Telegram">
+                                <div class="text-[#24A1DE]">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
+                                </div>
+                            </a>
+                            <a href="https://x.com/apulianchain" target="_blank" rel="noopener noreferrer"
+                                class="ac-social flex items-center justify-center w-11 h-11" title="X" aria-label="ApulianChain su X">
+                                <div class="text-[#000000]">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </div>
+                            </a>
+                            <a href="https://www.youtube.com/@Apulianchain" target="_blank" rel="noopener noreferrer"
+                                class="ac-social flex items-center justify-center w-11 h-11" title="YouTube" aria-label="ApulianChain su YouTube">
+                                <div class="text-[#FF0000]">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                            <a href="#corsi" class="ac-btn ac-btn-primary">
+                                Scopri i Corsi
+                                <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-4-7 7 7-7 7"></path></svg>
+                            </a>
+                            <a href="#network" class="ac-btn ac-btn-secondary">
+                                Esplora il Network
+                                <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-4-7 7 7-7 7"></path></svg>
+                            </a>
+                        </div>
+
+                        <div class="ac-hero-meta">
+                            <div><strong>7</strong><span>Hub in Puglia</span></div>
+                            <div><strong>4</strong><span>Percorsi formativi</span></div>
+                            <div><strong>2</strong><span>Summit a Ostuni</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Colonna Destra: Atlante 3D -->
+                    <div class="lg:col-span-6 xl:col-span-5 ac-hero-stage-wrap">
+                        <div class="ac-stage" data-hero-stage role="group" aria-label="Atlante tridimensionale della Puglia con i sette hub della rete">
+                            <div class="ac-stage-glow" aria-hidden="true"></div>
+                            <div class="ac-stage-fallback" aria-hidden="true">
+                                <img src="./img/opt/atlas-top-1200.webp" alt="" width="1200" height="897" fetchpriority="high">
+                            </div>
+                            <div class="ac-stage-canvas" data-stage-canvas></div>
+
+                            <div class="ac-stage-topline" aria-hidden="true">
+                                <span>ATLANTE LUMINOSO</span>
+                                <span>PUGLIA · 41° N</span>
+                            </div>
+                            <div class="ac-stage-caption" aria-hidden="true">
+                                <span>
+                                    <strong>Rete viva / Atlas</strong>
+                                    Blockchain · AI · Heritage
+                                </span>
+                                <span>
+                                    <span class="ac-stage-live"><span class="ac-live-dot"></span> LIVE</span>
+                                </span>
+                            </div>
+                            <button type="button" class="ac-stage-toggle" data-stage-toggle aria-label="Metti in pausa l'animazione dell'atlante" aria-pressed="false">
+                                <svg class="ac-icon-pause" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+                                <svg class="ac-icon-play" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SEZIONE CORSI (PERCORSI FORMATIVI CON AREA RISERVATA)   -->
+        <!-- ========================================================== -->
+        <section id="corsi" class="ac-section ac-section-paper relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Header Sezione Corsi -->
+                <div class="ac-section-head flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+                    <div>
+                        <span class="ac-eyebrow">Academy APS</span>
+                        <h2 class="ac-h2">Percorsi<br><em class="italic">formativi.</em></h2>
+                        <p class="ac-lead">
+                            Masterclass intensive progettate con le aziende partner per un inserimento immediato.
+                        </p>
+                    </div>
+
+                    <a href="https://apulianchain.com/catalogo" target="_blank" rel="noopener noreferrer" class="ac-link">
+                        Vedi tutto il catalogo
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-4-7 7 7-7 7"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Banner di Stato Accesso Corsi -->
+                <div id="coursesAccessBanner" class="mb-12">
+                    <!-- Dinamicamente popolato via JS -->
+                </div>
+
+                <!-- Griglia Corsi -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <!-- Corso 1: Blockchain -->
+                    <div class="course-card group bg-white rounded-[2rem] p-8 border border-stone-100 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm border border-white/50">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 4.24 2 7v10c0 2.76 4.48 5 10 5s10-2.24 10-5V7c0-2.76-4.48-5-10-5zm0 2c4.42 0 8 1.79 8 3s-3.58 3-8 3-8-1.79-8-3 3.58-3 8-3zm8 13c0 1.21-3.58 3-8 3s-8-1.79-8-3V14.5c1.9 1.5 4.8 2.5 8 2.5s6.1-1 8-2.5V17zm0-5c0 1.21-3.58 3-8 3s-8-1.79-8-3V9.5c1.9 1.5 4.8 2.5 8 2.5s6.1-1 8-2.5V12z"/></svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-stone-900 leading-tight">Architettura del Metaverso</h3>
+                            </div>
+                            <div class="mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md">Advanced</span>
+                            </div>
+                            <p class="text-stone-500 text-sm leading-relaxed mb-6">
+                                I principi e le applicazioni dell'Architettura del Metaverso per l'industria. Sistemi distribuiti, NFT e interoperabilità Web3.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="course-download-container pt-4 border-t border-stone-100" data-pdf="./pdf/architettura-metaverso.pdf" data-title="Architettura del Metaverso">
+                                <!-- Popolato dinamicamente da updateCourseUI() -->
+                            </div>
+                            <div class="w-full h-[2px] bg-transparent rounded-full overflow-hidden mt-5">
+                                <div class="w-0 h-full bg-blue-500 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Corso 2: Cyber Security -->
+                    <div class="course-card group bg-white rounded-[2rem] p-8 border border-stone-100 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-red-50 text-red-500 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm border border-white/50">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-stone-900 leading-tight">Cyber Security Ops</h3>
+                            </div>
+                            <div class="mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-red-500 bg-red-50 border border-red-100 px-2.5 py-1 rounded-md">Intermediate</span>
+                            </div>
+                            <p class="text-stone-500 text-sm leading-relaxed mb-6">
+                                Difesa attiva e infrastrutture critiche. Vulnerability assessment e disaster recovery.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="course-download-container pt-4 border-t border-stone-100" data-pdf="./pdf/cyber-security.pdf" data-title="Cyber Security Ops">
+                                <!-- Popolato dinamicamente da updateCourseUI() -->
+                            </div>
+                            <div class="w-full h-[2px] bg-transparent rounded-full overflow-hidden mt-5">
+                                <div class="w-0 h-full bg-red-500 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Corso 3: Gamification -->
+                    <div class="course-card group bg-white rounded-[2rem] p-8 border border-stone-100 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm border border-white/50">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM7 15H5v-2H3v-2h2V9h2v2h2v2H7v2zm10-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2 3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-stone-900 leading-tight">Gamification Design</h3>
+                            </div>
+                            <div class="mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-md">Base</span>
+                            </div>
+                            <p class="text-stone-500 text-sm leading-relaxed mb-6">
+                                Engagement utente per turismo e retail. Meccaniche di gioco per valorizzare il territorio e fidelizzare i clienti.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="course-download-container pt-4 border-t border-stone-100" data-pdf="./pdf/gamification.pdf" data-title="Gamification Design">
+                                <!-- Popolato dinamicamente da updateCourseUI() -->
+                            </div>
+                            <div class="w-full h-[2px] bg-transparent rounded-full overflow-hidden mt-5">
+                                <div class="w-0 h-full bg-amber-500 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Corso 4: AI & ML -->
+                    <div class="course-card group bg-white rounded-[2rem] p-8 border border-stone-100 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-violet-50 text-violet-500 flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm border border-white/50">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+                                        <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-serif text-xl font-bold text-stone-900 leading-tight">AI & Machine Learning</h3>
+                            </div>
+                            <div class="mb-4">
+                                <span class="text-xs font-bold uppercase tracking-wider text-violet-600 bg-violet-50 border border-violet-100 px-2.5 py-1 rounded-md">Advanced</span>
+                            </div>
+                            <p class="text-stone-500 text-sm leading-relaxed mb-6">
+                                AI applicata all'Industry 4.0. LLM e Reti neurali, La computer vision per l'automazione aziendale.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="course-download-container pt-4 border-t border-stone-100" data-pdf="./pdf/ai-ml.pdf" data-title="AI & Machine Learning">
+                                <!-- Popolato dinamicamente da updateCourseUI() -->
+                            </div>
+                            <div class="w-full h-[2px] bg-transparent rounded-full overflow-hidden mt-5">
+                                <div class="w-0 h-full bg-violet-500 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================================== -->
+        <!-- 4. SEZIONE EVENTI: SEPARAZIONE PROSSIMI & PASSATI (ARCHIVIO) -->
+        <!-- ========================================================== -->
+        <section id="eventi" class="ac-section ac-section-paper-2 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <!-- Intestazione Sezione Eventi -->
+                <div class="ac-section-head flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
+                    <div>
+                        <span class="ac-eyebrow">Eventi &amp; Community</span>
+                        <h2 class="ac-h2">Incontri<br><em class="italic">da vivere.</em></h2>
+                        <p class="ac-lead">
+                            Scopri i prossimi incontri in programma ed esplora lo storico degli eventi già realizzati in Puglia.
+                        </p>
+                    </div>
+
+                    <!-- Badge indicatore admin -->
+                    <div id="eventsAdminBadge" class="hidden">
+                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            Gestione Amministratore Attiva
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Tab Filtri Eventi: Tutti | In Programma | Passati -->
+                <div class="flex items-center gap-3 mb-10 overflow-x-auto pb-2 no-scrollbar">
+                    <button onclick="setEventFilter('tutti')" id="btnEventFilter_tutti" class="ac-filter is-active">
+                        Tutti gli eventi
+                    </button>
+                    <button onclick="setEventFilter('futuri')" id="btnEventFilter_futuri" class="ac-filter">
+                        In programma
+                    </button>
+                    <button onclick="setEventFilter('passati')" id="btnEventFilter_passati" class="ac-filter">
+                        Archivio Ostuni
+                    </button>
+                </div>
+
+                <!-- PANNELLO ADMIN: Inserimento Eventi (Visibile solo per admin loggato) -->
+                <div id="adminEventFormContainer" class="hidden mb-14 bg-white rounded-3xl p-6 md:p-8 shadow-xl border-2 border-indigo-200/60 animate-fade-in-up">
+                    <div class="flex items-center justify-between pb-4 mb-6 border-b border-stone-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold">
+                                +
+                            </div>
+                            <div>
+                                <h3 class="font-serif font-bold text-xl text-stone-900">Pannello Amministratore: Pubblica Nuovo Evento</h3>
+                                <p class="text-xs text-stone-500">I dati vengono visualizzati subito e sincronizzati in tempo reale.</p>
+                            </div>
+                        </div>
+                        <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-full border border-indigo-100">Admin Only</span>
+                    </div>
+
+                    <form id="addEventForm" onsubmit="handleCreateEvent(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Titolo Evento -->
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Titolo Evento *</label>
+                                <input type="text" id="newEventTitle" required placeholder="Es. Apulian Summit 2027"
+                                    class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                            </div>
+
+                            <!-- Data Evento -->
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Data dell'Evento *</label>
+                                <input type="date" id="newEventDate" required
+                                    class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                            </div>
+
+                            <!-- Luogo / Hub -->
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Luogo o Modalità *</label>
+                                <input type="text" id="newEventLocation" required placeholder="Es. Ostuni Innovation Hub (BR)"
+                                    class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Tipologia / Categoria -->
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Categoria</label>
+                                <select id="newEventCategory" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                                    <option value="Conferenza">Conferenza</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Meetup">Meetup Community</option>
+                                    <option value="Formazione">Formazione Intensiva</option>
+                                </select>
+                            </div>
+
+                            <!-- Descrizione Evento -->
+                            <div class="md:col-span-2 space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Descrizione Evento *</label>
+                                <textarea id="newEventDesc" required rows="2" placeholder="Fornisci dettagli sul programma, speaker e modalità di accesso..."
+                                    class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-3 pt-2">
+                            <button type="reset" class="px-5 py-2.5 rounded-xl border border-stone-200 text-stone-600 text-sm font-semibold hover:bg-stone-50 transition">
+                                Reset
+                            </button>
+                            <button type="submit" id="submitEventBtn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-200 transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Pubblica Evento
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- CONTENITORI EVENTI SEPARATI -->
+                <div id="eventsDisplayWrapper" class="space-y-14">
+                    <!-- Popolato dinamicamente da renderEvents() con sezioni 'In Programma' ed 'Eventi Passati' -->
+                </div>
+
+                <!-- Messaggio Nessun Evento -->
+                <div id="noEventsMessage" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-stone-200 p-8">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-stone-100 text-stone-400 rounded-2xl flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-stone-800 mb-2">Nessun evento da mostrare</h3>
+                    <p class="text-stone-500 max-w-md mx-auto text-sm">Seleziona un'altra categoria o torna a trovarci presto per le novità!</p>
+                </div>
+
+                <!-- PARTNER & GUEST EVENTS -->
+                <div class="ac-guest" aria-labelledby="guest-events-title">
+                    <div class="ac-guest-head">
+                        <div>
+                            <span class="ac-eyebrow">Eventi partner</span>
+                            <h3 class="ac-guest-title" id="guest-events-title">Invitati<br><em>dalle community.</em></h3>
+                        </div>
+                        <p class="ac-guest-note">
+                            Partecipazioni su invito agli incontri delle community blockchain in Italia e in Europa, accanto ai protagonisti dell'ecosistema.
+                        </p>
+                    </div>
+
+                    <ul class="ac-guest-grid" role="list">
+                        <li class="ac-guest-card" style="--guest: #38bdf8">
+                            <div class="ac-guest-top">
+                                <span class="ac-guest-badge">Su invito</span>
+                                <span class="ac-guest-mark" aria-hidden="true">EB</span>
+                            </div>
+                            <h4 class="ac-guest-name">EthBari</h4>
+                            <p class="ac-guest-meta">Ethereum · Bari</p>
+                        </li>
+                        <li class="ac-guest-card" style="--guest: #8b5cf6">
+                            <div class="ac-guest-top">
+                                <span class="ac-guest-badge">Su invito</span>
+                                <span class="ac-guest-mark" aria-hidden="true">EV</span>
+                            </div>
+                            <h4 class="ac-guest-name">EthVenice</h4>
+                            <p class="ac-guest-meta">Ethereum · Venezia</p>
+                        </li>
+                        <li class="ac-guest-card" style="--guest: #b08d4f">
+                            <div class="ac-guest-top">
+                                <span class="ac-guest-badge">Su invito</span>
+                                <span class="ac-guest-mark" aria-hidden="true">BF</span>
+                            </div>
+                            <h4 class="ac-guest-name">BitcoinForum</h4>
+                            <p class="ac-guest-meta">Bitcoin community</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================================== -->
+        <!-- 5. SEZIONE GALLERIA (30 FOTO REALI OSTUNI + CAROSELLO 10 SLIDE + LIGHTBOX) -->
+        <!-- ========================================================== -->
+        <section id="galleria" class="ac-section ac-section-paper relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Header Galleria -->
+                <div class="ac-section-head flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+                    <div>
+                        <span class="ac-eyebrow">Ostuni · Highlights</span>
+                        <h2 class="ac-h2">Ostuni,<br><em class="italic">in immagini.</em></h2>
+                        <p class="ac-lead">
+                            Gli scatti ufficiali degli Eventi ApulianChain: innovazione, formazione e networking.
+                        </p>
+                    </div>
+
+                    <!-- Pulsante Aggiungi Foto (Solo Admin) -->
+                    <div id="galleryAdminControls" class="hidden">
+                        <button onclick="toggleAdminGalleryForm()" class="ac-btn ac-btn-secondary ac-btn-sm">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Aggiungi Foto / Categoria
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CAROSELLO FOTO IN EVIDENZA (10 SLIDES) -->
+                <div class="ac-carousel mb-14 relative overflow-hidden bg-stone-950">
+                    <div class="relative h-[340px] sm:h-[460px] md:h-[560px] overflow-hidden" id="heroCarousel">
+                        <!-- Slides generate via JavaScript -->
+                        <div id="carouselTrack" class="h-full flex transition-transform duration-700 ease-out">
+                            <!-- Slides iniettate da renderCarousel() -->
+                        </div>
+
+                        <!-- Frecce Navigazione Carosello -->
+                        <button onclick="prevSlide()" class="ac-carousel-arrow absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110 z-20" aria-label="Immagine precedente">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button onclick="nextSlide()" class="ac-carousel-arrow absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110 z-20" aria-label="Immagine successiva">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+
+                        <!-- Indicatori Pallini (Dots per 10 slide) -->
+                        <div id="carouselDots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-stone-900/50 backdrop-blur-md px-4 py-2 rounded-full max-w-[90%] overflow-x-auto">
+                            <!-- Dots iniettati da JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNELLO ADMIN: Aggiunta Foto e Nuove Categorie (Visibile solo per Admin) -->
+                <div id="adminGalleryForm" class="hidden mb-12 p-6 md:p-8 bg-stone-50 rounded-3xl border-2 border-stone-200">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-serif font-bold text-xl text-stone-900">Aggiungi Immagine alla Galleria</h3>
+                        <button onclick="toggleAdminGalleryForm()" class="text-stone-400 hover:text-stone-700">✕</button>
+                    </div>
+                    <form onsubmit="handleAddGalleryItem(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Percorso o URL Immagine *</label>
+                                <input type="text" id="newImgUrl" required placeholder="./img/..." class="w-full bg-white border border-stone-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Titolo / Didascalia *</label>
+                                <input type="text" id="newImgTitle" required placeholder="Descrizione dello scatto" class="w-full bg-white border border-stone-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-stone-700 uppercase">Categoria (Esistente o Nuova) *</label>
+                                <input type="text" id="newImgCategory" required placeholder="Es. Ostuni 2026, Workshop, Community..." class="w-full bg-white border border-stone-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-sky-400 outline-none">
+                            </div>
+                        </div>
+                        <div class="flex justify-end gap-3 pt-2">
+                            <button type="submit" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow-md transition">
+                                Aggiungi alla Galleria
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FILTRI CATEGORIE -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar" id="galleryCategoryFilterContainer">
+                    <!-- Bottoni di categoria iniettati dinamicamente da JS -->
+                </div>
+
+                <!-- GRIGLIA IMMAGINI MODERNA & RESPONSIVE -->
+                <div id="galleryGrid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                    <!-- Popolato da renderGalleryGrid() -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================================== -->
+        <!-- PARTNER — NASTRO LOGHI                                      -->
+        <!-- ========================================================== -->
+        <section id="partner" class="ac-partners" aria-labelledby="partners-title">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="ac-partners-head">
+                    <div>
+                        <span class="ac-eyebrow">Partner &amp; Community</span>
+                        <h2 class="ac-partners-title" id="partners-title">Con chi<br><em>camminiamo.</em></h2>
+                    </div>
+                    <p class="ac-partners-note">
+                        Le realtà che affiancano ApulianChain nella formazione, negli eventi e nei progetti sul territorio.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ac-marquee">
+                <div class="ac-marquee-track">
+                    <div class="ac-marquee-half" role="list" aria-label="Partner ApulianChain">
+                        <div class="ac-partner" role="listitem">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-officina.webp" alt="Officina De-Fi" width="284" height="300" decoding="async"></span>
+                            <span class="ac-partner-name">Officina De-Fi</span>
+                        </div>
+                        <div class="ac-partner" role="listitem">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-cryptopub.webp" alt="CryptoPub" width="800" height="600" decoding="async"></span>
+                            <span class="ac-partner-name">CryptoPub</span>
+                        </div>
+                        <div class="ac-partner" role="listitem">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-team1.webp" alt="team1" width="600" height="169" decoding="async"></span>
+                            <span class="ac-partner-name">team1</span>
+                        </div>
+                        <div class="ac-partner" role="listitem">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-degate.webp" alt="DeGate" width="560" height="112" decoding="async"></span>
+                            <span class="ac-partner-name">DeGate</span>
+                        </div>
+                    </div>
+                    <div class="ac-marquee-half" aria-hidden="true">
+                        <div class="ac-partner">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-officina.webp" alt="" width="284" height="300" decoding="async"></span>
+                            <span class="ac-partner-name">Officina De-Fi</span>
+                        </div>
+                        <div class="ac-partner">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-cryptopub.webp" alt="" width="800" height="600" decoding="async"></span>
+                            <span class="ac-partner-name">CryptoPub</span>
+                        </div>
+                        <div class="ac-partner">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-team1.webp" alt="" width="600" height="169" decoding="async"></span>
+                            <span class="ac-partner-name">team1</span>
+                        </div>
+                        <div class="ac-partner">
+                            <span class="ac-partner-logo"><img src="./img/opt/partner-degate.webp" alt="" width="560" height="112" decoding="async"></span>
+                            <span class="ac-partner-name">DeGate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- ========================================================== -->
+        <!-- 6. NETWORK DIFFUSO — CARTOGRAFIA APULIANCHAIN               -->
+        <!-- ========================================================== -->
+        <section id="network" class="ac-network">
+            <div class="max-w-7xl mx-auto px-6" data-network-map>
+                <div class="ac-network-head">
+                    <div class="ac-network-intro">
+                        <span class="ac-eyebrow">Rete Diffusa</span>
+                        <h2 class="ac-h2">Una rete<br><em class="italic">diffusa.</em></h2>
+                        <p class="ac-lead ac-network-lead">
+                            Non un singolo nodo, ma una rete neurale di specializzati che abbraccia tutta la Puglia: da Foggia al Salento.
+                        </p>
+                    </div>
+
+                    <div class="ac-network-aside">
+                        <div class="ac-legend" data-network-legend aria-label="Filtra gli hub per tipo"></div>
+
+                        <div class="ac-network-note" data-network-note>
+                            <span class="ac-map-status-dot"></span>
+                            Rete attiva · seleziona un hub
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ac-map-mat">
+                    <div class="ac-map-topbar">
+                        <span><span class="ac-map-status-dot"></span> Network live · 7 nodi</span>
+                        <span>Puglia / Italia</span>
+                    </div>
+
+                    <figure class="ac-map-sheet" aria-label="Atlante della rete ApulianChain in Puglia, visto dall'alto">
+                        <div class="ac-map-frame" data-network-frame>
+                            <img src="./img/opt/atlas-top-2000.webp"
+                                 srcset="./img/opt/atlas-top-1200.webp 1200w, ./img/opt/atlas-top-1400.webp 1400w, ./img/opt/atlas-top-1800.webp 1800w, ./img/opt/atlas-top-2000.webp 2000w"
+                                 sizes="(min-width: 1280px) 1200px, (min-width: 768px) calc(100vw - 84px), calc(100vw - 70px)"
+                                 alt="Atlante della Puglia visto dall'alto con i sette hub ApulianChain" width="2000" height="1496" loading="lazy" decoding="async">
+                            <svg class="ac-map-routes" data-network-routes aria-hidden="true"></svg>
+                            <div class="ac-map-pins" data-network-pins></div>
+
+                            <div class="ac-map-caption" aria-hidden="true">
+                                <strong>Rete ApulianChain</strong>
+                                <span>7 Realtà · 6 province</span>
+                            </div>
+                            <div class="ac-map-compass" aria-hidden="true">N</div>
+                        </div>
+                    </figure>
+
+                    <div class="ac-map-detail" data-network-detail aria-live="polite" style="--detail-color:#8B5CF6">
+                        <div>
+                            <div class="ac-detail-kicker">
+                                <span data-detail-type>Tech Lab</span>
+                                <span data-detail-city>Bari</span>
+                                <span data-detail-partner>HokenTech</span>
+                            </div>
+                            <h3 class="ac-detail-title" data-detail-name>Bari</h3>
+                            <p class="ac-detail-desc" data-detail-description>Hub centrale della rete: blockchain, smart contract e sviluppo Web3.</p>
+                        </div>
+                        <div class="ac-detail-meta">
+                            <span class="ac-detail-index" data-detail-index>HUB 01 / 07</span>
+                            <a href="#contatti" class="ac-detail-link">
+                                Parla con noi
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-4-7 7 7-7 7"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. SEZIONE APULIAN TEAM (SLIDER CONTINUO INFINITO)         -->
+        <!-- ========================================================== -->
+        <section id="team" class="ac-section ac-section-paper-2 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+                <span class="ac-eyebrow justify-center">Talenti &amp; Professionisti</span>
+                <h2 class="ac-h2">Apulian<br><em class="italic">Team.</em></h2>
+                <p class="ac-lead mx-auto">Il team che sta plasmando il futuro tecnologico del Mezzogiorno.</p>
+            </div>
+
+            <!-- Carousel continuo con sfumature laterali -->
+            <div class="relative w-full overflow-hidden">
+                <div class="ac-team-fade-left absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none"></div>
+                <div class="ac-team-fade-right absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none"></div>
+
+                <div class="flex animate-scroll md:hover:[animation-play-state:paused] w-max gap-8 md:gap-12 px-6 md:px-12 touch-pan-y" id="teamContainer">
+                    <!-- Membri del team generati via JavaScript per ciclo infinito -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================================== -->
+        <!-- 8. SEZIONE CONTATTI                                        -->
+        <!-- ========================================================== -->
+        <section id="contatti" class="ac-section ac-section-paper-deep">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+                <span class="ac-eyebrow justify-center">Connettiamoci</span>
+                <h2 class="ac-h2">Parla<br><em class="italic">con noi.</em></h2>
+                <p class="ac-lead mx-auto">Hai un'idea, vuoi collaborare o richiedere informazioni sui nostri corsi? Scrivici un messaggio.</p>
+
+                <div class="ac-contact-card bg-white rounded-[2rem] p-8 md:p-12 mt-10">
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-6 text-left">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-stone-900 uppercase ml-2">Nome</label>
+                                <input name="name" required type="text" placeholder="Il tuo nome"
+                                    class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-sky-400 text-sm">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-stone-900 uppercase ml-2">Email</label>
+                                <input name="email" required type="email" placeholder="nome@esempio.com"
+                                    class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-sky-400 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-stone-900 uppercase ml-2">Messaggio</label>
+                            <textarea name="message" required rows="4" placeholder="Scrivi qui il tuo messaggio..."
+                                class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-sky-400 resize-none text-sm"></textarea>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-4 items-center justify-between mt-8">
+                            <button type="submit" id="contactBtn"
+                                class="w-full md:w-auto px-8 bg-stone-900 text-white font-bold py-3.5 rounded-xl hover:bg-stone-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-black/10 text-sm whitespace-nowrap">
+                                <span>Invia Messaggio</span>
+                                <svg class="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-4-7 7 7-7 7"></path></svg>
+                            </button>
+
+                            <div class="flex gap-3">
+                                <a href="https://t.me/apulianchain" target="_blank" rel="noopener noreferrer"
+                                    class="w-11 h-11 rounded-full bg-[#229ED9]/10 hover:bg-[#229ED9] text-[#229ED9] hover:text-white transition-all flex items-center justify-center shadow-sm" title="Canale Telegram">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
+                                </a>
+                                <a href="https://wa.me/393296080816" target="_blank" rel="noopener noreferrer"
+                                    class="w-11 h-11 rounded-full bg-[#25D366]/10 hover:bg-[#25D366] text-[#25D366] hover:text-white transition-all flex items-center justify-center shadow-sm" title="WhatsApp Ufficiale">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ========================================================== -->
+    <!-- ========================================================== -->
+    <!-- 9. FOOTER                                                   -->
+    <!-- ========================================================== -->
+    <footer class="ac-footer py-16">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="inline-block" aria-label="ApulianChain — torna all'inizio">
+                    <img src="./img/opt/logo-white.png" alt="ApulianChain" class="ac-footer-logo" width="640" height="102">
+                </a>
+                <p class="max-w-sm mb-4 leading-relaxed">
+                    Costruiamo ponti tra la tradizione mediterranea e l'innovazione digitale. Made with 🤍 in Puglia.
+                </p>
+                <div class="text-xs space-y-1 mb-6 opacity-70">
+                    <p>Codice Fiscale: 93563590723</p>
+                    <p>Sostienici con il tuo 5x1000</p>
+                </div>
+                <!-- Social links -->
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://www.linkedin.com/company/apulianchain" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center text-white" title="LinkedIn" aria-label="ApulianChain su LinkedIn">
+                        <svg class="w-[18px] h-[18px] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.58c-1.14 0-2.06-.93-2.06-2.06 0-1.14.92-2.06 2.06-2.06s2.06.92 2.06 2.06c0 1.13-.92 2.06-2.06 2.06zM20.45 20.45h-3.56v-5.6c0-1.34-.03-3.05-1.85-3.05-1.85 0-2.14 1.45-2.14 2.95v5.7h-3.56V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/apulianchain" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center text-white" title="Instagram" aria-label="ApulianChain su Instagram">
+                        <svg class="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://t.me/apulianchain" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center text-white" title="Telegram" aria-label="ApulianChain su Telegram">
+                        <svg class="w-[18px] h-[18px] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
+                    </a>
+                    <a href="https://x.com/apulianchain" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center text-white" title="X" aria-label="ApulianChain su X">
+                        <svg class="w-[18px] h-[18px] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@Apulianchain" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center text-white" title="YouTube" aria-label="ApulianChain su YouTube">
+                        <svg class="w-[18px] h-[18px] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-4">Navigazione</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#corsi" class="transition-colors">Percorsi Formativi</a></li>
+                    <li><a href="#eventi" class="transition-colors">Eventi in Programma</a></li>
+                    <li><a href="#galleria" class="transition-colors">Galleria Foto</a></li>
+                    <li><a href="#network" class="transition-colors">Network Diffuso</a></li>
+                    <li><a href="#team" class="transition-colors">Apulian Team</a></li>
+                    <li><a href="https://apulianchain.blogspot.com/" target="_blank" rel="noopener noreferrer" class="transition-colors">Blog</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-4">Area Riservata &amp; Info</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="./privacy.html" class="transition-colors">Privacy Policy</a></li>
+                    <li><a href="./cookies.html" class="transition-colors">Cookie Policy</a></li>
+                    <li><a href="#contatti" class="transition-colors">Contattaci</a></li>
+                    <li class="pt-2">
+                        <button onclick="openAuthModal()" class="text-xs inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 text-stone-200 transition">
+                            <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            <span>Accesso Area Riservata</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+            <div>© 2026 ApulianChain — Tutti i diritti riservati.</div>
+            <div class="text-stone-500">Design &amp; Architecture by ApulianChain Team</div>
+        </div>
+    </footer>
+
+
+    <!-- ========================================================== -->
+    <!-- 10. PULSANTI FLOTTANTI (WHATSAPP & TELEGRAM)               -->
+    <!-- ========================================================== -->
+    <!-- WhatsApp Floating Action Button -->
+    <a href="https://wa.me/393296080816" target="_blank" rel="noopener noreferrer"
+        class="ac-fab fixed bottom-24 right-6 z-40 w-14 h-14 rounded-full group flex items-center justify-center" aria-label="Scrivici su WhatsApp">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span class="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-white text-stone-900 px-3 py-1.5 rounded-xl text-xs font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Scrivici su WhatsApp
+        </span>
+    </a>
+
+    <!-- Telegram Floating Action Button -->
+    <a href="https://t.me/apulianchain" target="_blank" rel="noopener noreferrer"
+        class="ac-fab fixed bottom-[10.5rem] right-6 z-40 w-14 h-14 rounded-full group flex items-center justify-center" aria-label="Canale Telegram ApulianChain">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
+        <span class="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-white text-stone-900 px-3 py-1.5 rounded-xl text-xs font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Canale Telegram
+        </span>
+    </a>
+
+
+    <!-- ========================================================== -->
+    <!-- 11. MODALE LIGHTBOX NATIVO VANILLA JS                      -->
+    <!-- ========================================================== -->
+    <div id="lightboxModal" class="hidden-lightbox fixed inset-0 z-50 bg-stone-950/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-6" onclick="handleLightboxBgClick(event)">
+        <!-- Pulsante Chiudi -->
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition hover:scale-110 z-50" aria-label="Chiudi Lightbox">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Freccia Precedente -->
+        <button onclick="prevLightbox(event)" class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition hover:scale-110 z-50" aria-label="Foto precedente">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+        <!-- Immagine e Informazioni -->
+        <div class="max-w-5xl max-h-[90vh] flex flex-col items-center justify-center select-none" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="" alt="Galleria ApulianChain" class="max-h-[75vh] max-w-[90vw] object-contain rounded-2xl shadow-2xl border-2 border-white/10">
+            <div class="mt-4 text-center">
+                <span id="lightboxCategory" class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 mb-1">Categoria</span>
+                <h4 id="lightboxTitle" class="font-serif text-xl sm:text-2xl font-bold text-white mb-1">Titolo Foto</h4>
+                <p id="lightboxCounter" class="text-xs text-stone-400">1 di 30</p>
+            </div>
+        </div>
+
+        <!-- Freccia Successiva -->
+        <button onclick="nextLightbox(event)" class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition hover:scale-110 z-50" aria-label="Foto successiva">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </div>
+
+
+    <!-- ========================================================== -->
+    <!-- 12. MODALE AUTENTICAZIONE (PULITO, SENZA DEFAULTS A SCHERMO) -->
+    <!-- ========================================================== -->
+    <div id="authModal" class="hidden fixed inset-0 z-50 bg-stone-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass bg-white/95 rounded-3xl p-8 max-w-md w-full shadow-2xl border border-stone-200 relative animate-fade-in-up" onclick="event.stopPropagation()">
+            <!-- Pulsante Chiudi -->
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Intestazione Modale -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 mx-auto mb-3 flex items-center justify-center shadow-inner">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-stone-900">Area Riservata</h3>
+                <p class="text-xs text-stone-500 mt-1">Inserisci le tue credenziali per accedere ai corsi e ai documenti.</p>
+            </div>
+
+            <!-- Feedback Messaggi -->
+            <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold"></div>
+
+            <!-- FORM LOGIN -->
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-stone-700 uppercase">ID Utente o Email</label>
+                    <input type="text" id="loginId" required placeholder="Inserisci il tuo ID utente" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none transition">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-stone-700 uppercase">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Inserisci la password" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-sky-400 outline-none transition">
+                </div>
+
+                <button type="submit" id="loginSubmitBtn" class="w-full py-3.5 bg-stone-900 hover:bg-stone-800 text-white rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center gap-2 mt-4 hover:scale-[1.01] active:scale-[0.99]">
+                    <span>Accedi</span>
+                    <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ========================================================== -->
+    <!-- 13. JAVASCRIPT APPLICATIVO COMPLETO                        -->
+    <!-- ========================================================== -->
+    <script>
+        /* ==========================================================================
+           CONFIGURAZIONE EVENTI - FACILE DA MODIFICARE E AMPLIARE VIA CODICE
+           Aggiungi o rimuovi eventi in questo elenco. 
+           Il sistema riconosce in automatico la data separandoli tra:
+           - In Programma (Eventi Futuri)
+           - Eventi Svolti (Archivio Ostuni)
+           
+           Parametri:
+           - id: Identificativo unico
+           - title: Titolo dell'evento
+           - date: Formato 'AAAA-MM-GG'
+           - location: Luogo / Hub
+           - category: 'Conferenza', 'Workshop', 'Hackathon', 'Meetup', ecc.
+           - desc: Descrizione
+           - link: '#contatti' o '#galleria'
+           - isPast: true (se già svolto) / false (se futuro). Se omesso, viene calcolato dalla data!
+        ========================================================================== */
+        const APULIAN_EVENTS_CONFIG = [
+            // --- PROSSIMI EVENTI (IN PROGRAMMA) ---
+            {
+                id: "ev_workshop_metaverso",
+                title: "Workshop: Metaverso 2026 dal Quadrato alla BlockChain",
+                date: "2026-11-03",
+                location: "Molfetta (BA) - Cittadella degli Artisti",
+                category: "workshop",
+                desc: "impariamo a sviluppare spazi digitali per il tessuto produttivo pugliese.",
+                link: "#contatti",
+                isPast: false
+            },
+            {
+                id: "ev_workshop_security",
+                title: "Workshop: Smart Contract & Cyber Security Ops",
+                date: "2026-12-10",
+                location: "Molfetta (BA) - Cittadella degli Artisti",
+                category: "Workshop",
+                desc: "Sessione intensiva su vulnerability assessment, testing di protocolli DeFi e difesa delle infrastrutture distribuite.",
+                link: "#contatti",
+                isPast: false
+            },
+            {
+                id: "ev_gamification_masterclass",
+                title: "Gamification & Heritage Day",
+                date: "2027-02-20",
+                location: "Molfetta (BA) - Cittadella degli Artisti",
+                category: "Formazione",
+                desc: "Laboratorio esperienziale per applicare meccaniche di engagement e digital storytelling ai beni culturali pugliesi.",
+                link: "#contatti",
+                isPast: false
+            },
+
+            // --- EVENTI SVOLTI (ARCHIVIO STORICO OSTUNI) ---
+            {
+                id: "ev_ostuni_2026",
+                title: "ApulianChain Summer Meeting - Ostuni 2026",
+                date: "2026-08-01",
+                location: "Ostuni (BR)",
+                category: "Conferenza",
+                desc: "Grande incontro annuale sull'intersezione tra Blockchain, Intelligenza Artificiale e valorizzazione dell'Heritage pugliese.",
+                link: "#galleria",
+                isPast: true,
+                galleryCategory: "Ostuni 2026"
+            },
+            {
+                id: "ev_ostuni_2025",
+                title: "ApulianChain - Ostuni 2025",
+                date: "2025-08-30",
+                location: "Ostuni Chiostro Casa San Giacomo (BR)",
+                category: "Meetup",
+                desc: "Tavola rotonda inaugurale dell'ecosistema ApulianChain con mentor, sviluppatori e partner del territorio.",
+                link: "#galleria",
+                isPast: true,
+                galleryCategory: "Ostuni 2025"
+            }
+        ];
+
+        /* ==========================================================================
+           CONFIGURAZIONE GALLERIA (30 FOTO REALI DA ENTRAMBI I SUMMIT DI OSTUNI)
+           I primi 10 scatti hanno 'featured: true' per il carosello principale.
+        ========================================================================== */
+        const APULIAN_GALLERY_CONFIG = [
+            // --- TOP 10 FEATURED NEL CAROSELLO ---
+            {
+                id: "ostuni26_f1",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8429.jpg",
+                title: "ApulianChain Summit 2026 - Apertura e Welcome",
+                category: "Ostuni 2026",
+                featured: true
+            },
+            {
+                id: "ostuni26_f2",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8477.jpg",
+                title: "Panel Innovazione e Territorio Pugliese",
+                category: "Ostuni 2026",
+                featured: true
+            },
+            {
+                id: "ostuni25_f1",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0078.jpg",
+                title: "ApulianChain Forum 2025 - Accoglienza nel Chiostro",
+                category: "Ostuni 2025",
+                featured: true
+            },
+            {
+                id: "ostuni25_f2",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0226.jpg",
+                title: "Networking & Community Hub a Ostuni",
+                category: "Ostuni 2025",
+                featured: true
+            },
+            {
+                id: "ostuni26_f3",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8502.jpg",
+                title: "Keynote: Intelligenza Artificiale e Blockchain",
+                category: "Ostuni 2026",
+                featured: true
+            },
+            {
+                id: "ostuni26_f4",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8524.jpg",
+                title: "Workshop Applicato con i Mentor",
+                category: "Ostuni 2026",
+                featured: true
+            },
+            {
+                id: "ostuni25_f3",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0106.jpg",
+                title: "Tavola Rotonda Web3 & Nuovi Leader Digitali",
+                category: "Ostuni 2025",
+                featured: true
+            },
+            {
+                id: "ostuni26_f5",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8556.jpg",
+                title: "Sessione Q&A e Coinvolgimento Studenti",
+                category: "Ostuni 2026",
+                featured: true
+            },
+            {
+                id: "ostuni25_f4",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0254.jpg",
+                title: "Presentazione Ufficiale Hub Diffusi",
+                category: "Ostuni 2025",
+                featured: true
+            },
+            {
+                id: "ostuni25_f5",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0340.jpg",
+                title: "Chiusura Lavori e Saluti Community Ostuni",
+                category: "Ostuni 2025",
+                featured: true
+            },
+
+            // --- ALTRE FOTO COMPLETE DELLA GALLERIA (OSTUNI 2026) ---
+            {
+                id: "ostuni26_1",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8434.jpg",
+                title: "La platea del Summit 2026",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_2",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8445.jpg",
+                title: "Intervento sull'ecosistema tecnologico",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_3",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8579.jpg",
+                title: "Discussione interattiva in plenaria",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_4",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8595.jpg",
+                title: "Focus su formazione e masterclass",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_5",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8635.jpg",
+                title: "Momento di networking e scambio idee",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_6",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8685.jpg",
+                title: "Aperitivo e confronto informale",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_7",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8737.jpg",
+                title: "Interviste ai protagonisti e partner",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_8",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8753.jpg",
+                title: "Scorci del chiostro di Ostuni",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_9",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8787.jpg",
+                title: "Condivisione visione tecnologica futura",
+                category: "Ostuni 2026",
+                featured: false
+            },
+            {
+                id: "ostuni26_10",
+                url: "./img/01-08-2026 EVENTO APULIANCHAIN JPEG/DSC_8810.jpg",
+                title: "Foto di gruppo e conclusione Summit 2026",
+                category: "Ostuni 2026",
+                featured: false
+            },
+
+            // --- ALTRE FOTO COMPLETE DELLA GALLERIA (OSTUNI 2025) ---
+            {
+                id: "ostuni25_1",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0091.jpg",
+                title: "Apertura lavori Forum 2025",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_2",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0140.jpg",
+                title: "Tavolo tecnico su Smart Contracts",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_3",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0173.jpg",
+                title: "Approfondimento Cyber Security",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_4",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0194.jpg",
+                title: "Incontro tra professionisti ed esperti",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_5",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0218.jpg",
+                title: "Sessione di brainstorming con la community",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_6",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0236.jpg",
+                title: "Presentazione progetti formativi",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_7",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0274.jpg",
+                title: "Pausa caffè e confronto all'aperto",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_8",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0295.jpg",
+                title: "Dibattito su Heritage e Turismo Digitale",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_9",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0314.jpg",
+                title: "Interventi dei partner industriali",
+                category: "Ostuni 2025",
+                featured: false
+            },
+            {
+                id: "ostuni25_10",
+                url: "./img/30-08-2025 APULIANCHAIN EVENTO JPEG/DSC_0348.jpg",
+                title: "Arrivederci al prossimo evento a Ostuni",
+                category: "Ostuni 2025",
+                featured: false
+            }
+        ];
+
+        /* -------------------------------------------------------------
+           CONFIGURAZIONE FIREBASE (OPZIONALE)
+        ------------------------------------------------------------- */
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        let isFirebaseInitialized = false;
+        let firebaseAuth = null;
+        let firestoreDb = null;
+
+        try {
+            if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                firebaseAuth = firebase.auth();
+                firestoreDb = firebase.firestore();
+                isFirebaseInitialized = true;
+            }
+        } catch (err) {
+            console.warn("Firebase fallback locale attivo");
+        }
+
+        /* -------------------------------------------------------------
+           DATI STATICI UTENTI & HUB
+        ------------------------------------------------------------- */
+        const USERS_DB = {
+            'admin': { password: 'nimda', role: 'admin', name: 'Amministratore Apulian' },
+            'apulianutente': { password: '2026', role: 'utente', name: 'Membro ApulianChain' }
+        };
+
+        const TEAM_MEMBERS = [
+            { id: 1, name: "Marco A. Semerano", role: "Virtual Architect Shaping Metaverse", img: "./img/1.jpeg", linkedin: "https://www.linkedin.com/in/marco-antonio-semerano-08219189" },
+            { id: 2, name: "Vincenzo Papagna", role: "Educatore Finanziario AIEF Blockchain Innovation Manager", img: "./img/6.jpeg", linkedin: "https://www.linkedin.com/in/vincenzo-papagna-7322ba2b1?" },
+            { id: 3, name: "Antonio Petruzzelli", role: "Blockchain Innovation Manager", img: "./img/3.jpeg", linkedin: "https://www.linkedin.com/in/antonio-petruzzelli-7bb484369?" },
+            { id: 4, name: "Angelo Antelmi", role: "Test Engineer e Cybersecurity", img: "./img/2.jpeg", linkedin: "https://www.linkedin.com/in/angelo-antelmi-7b2a261b3?" },
+            { id: 5, name: "Mario Mastrulli", role: "AI Specialist", img: "./img/4.jpeg", linkedin: "https://www.linkedin.com/in/mario-mastrulli-277455212?" },
+            { id: 6, name: "Alfredo de Candia", role: "Web3 Developer", img: "./img/5.jpeg", linkedin: "https://www.linkedin.com/in/alfredo-de-candia?" },
+            { id: 7, name: "Alessio Rocco Infante", role: "Head of Blockchain", img: "./img/7.jpeg", linkedin: "https://www.linkedin.com/in/alessio-infante-8097a4168?" }
+        ];
+
+        /* -------------------------------------------------------------
+           STATO APPLICATIVO
+        ------------------------------------------------------------- */
+        let currentUser = null;
+        let currentEvents = [];
+        let eventFilterMode = 'tutti'; // 'tutti' | 'futuri' | 'passati'
+        let currentGallery = [];
+        let selectedCategory = "Tutti";
+        let activeCarouselIndex = 0;
+        let carouselInterval = null;
+        let lightboxCurrentIndex = 0;
+        let currentFilteredGallery = [];
+
+        /* -------------------------------------------------------------
+           AVVIO APPLICAZIONE
+        ------------------------------------------------------------- */
+        document.addEventListener('DOMContentLoaded', () => {
+            initHeaderScroll();
+            initAuth();
+            initCourses();
+            initEvents();
+            initGallery();
+            initTeamScroller();
+        });
+
+        /* -------------------------------------------------------------
+           1. HEADER & SMOOTH SCROLLING
+        ------------------------------------------------------------- */
+        function initHeaderScroll() {
+            const header = document.getElementById('mainHeader');
+            if (!header) return;
+
+            const update = () => {
+                header.classList.toggle('is-scrolled', window.scrollY > 18);
+                updateFloatingActions();
+            };
+
+            update();
+            window.addEventListener('scroll', update, { passive: true });
+
+            // Evidenzia il capitolo attualmente in lettura.
+            const links = [...document.querySelectorAll('#navBar a[href^="#"]')].filter(link => link.getAttribute('href').length > 1);
+            const sections = links
+                .map(link => document.querySelector(link.getAttribute('href')))
+                .filter(Boolean);
+
+            if ('IntersectionObserver' in window && sections.length) {
+                const visible = new Set();
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) visible.add(entry.target.id);
+                        else visible.delete(entry.target.id);
+                    });
+
+                    links.forEach(link => {
+                        const target = link.getAttribute('href').slice(1);
+                        link.classList.toggle('is-active', visible.has(target));
+                    });
+                }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+                sections.forEach(section => observer.observe(section));
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamIcon = document.getElementById('hamburgerIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            const isHidden = menu.classList.contains('hidden');
+
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                hamIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                hamIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+            updateFloatingActions();
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamIcon = document.getElementById('hamburgerIcon');
+            const closeIcon = document.getElementById('closeIcon');
+            menu.classList.add('hidden');
+            hamIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            updateFloatingActions();
+        }
+
+        function updateFloatingActions() {
+            const fabs = [...document.querySelectorAll('.ac-fab')];
+            if (!fabs.length) return;
+
+            const menu = document.getElementById('mobileMenu');
+            const menuOpen = menu ? !menu.classList.contains('hidden') : false;
+            const show = window.scrollY > Math.max(560, window.innerHeight * 0.9) && !menuOpen;
+
+            fabs.forEach(fab => {
+                fab.classList.toggle('is-visible', show);
+                if (show) fab.removeAttribute('tabindex');
+                else fab.setAttribute('tabindex', '-1');
+            });
+        }
+
+        /* -------------------------------------------------------------
+           2. AUTENTICAZIONE (PULITA, SENZA DATI A SCHERMO)
+        ------------------------------------------------------------- */
+        function initAuth() {
+            const savedUser = localStorage.getItem('apulian_current_user');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                } catch (e) {
+                    currentUser = null;
+                }
+            }
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            const desktopStatus = document.getElementById('desktopAuthStatus');
+            const mobileStatus = document.getElementById('mobileAuthStatus');
+            const eventsAdminBadge = document.getElementById('eventsAdminBadge');
+            const adminEventFormContainer = document.getElementById('adminEventFormContainer');
+            const galleryAdminControls = document.getElementById('galleryAdminControls');
+
+            if (currentUser) {
+                const isAdmin = currentUser.role === 'admin';
+                const roleBadge = isAdmin 
+                    ? `<span class="bg-indigo-600 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-md">Admin</span>`
+                    : `<span class="bg-sky-500 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-md">Membro</span>`;
+
+                desktopStatus.innerHTML = `
+                    <div class="flex items-center gap-3 bg-stone-100/90 border border-stone-200 pl-3 pr-2 py-1.5 rounded-xl shadow-sm">
+                        <div class="flex items-center gap-1.5 text-xs font-semibold text-stone-800">
+                            <span>👤 ${currentUser.id}</span>
+                            ${roleBadge}
+                        </div>
+                        <button onclick="logout()" class="text-xs bg-red-50 hover:bg-red-100 text-red-600 font-bold px-2.5 py-1 rounded-lg transition" title="Disconnettiti">
+                            Esci
+                        </button>
+                    </div>
+                `;
+
+                mobileStatus.innerHTML = `
+                    <div class="flex items-center justify-between p-3 bg-stone-50 rounded-xl border border-stone-200">
+                        <div class="flex items-center gap-2 text-sm font-semibold text-stone-800">
+                            <span>👤 ${currentUser.id}</span>
+                            ${roleBadge}
+                        </div>
+                        <button onclick="logout()" class="text-xs bg-red-500 text-white font-bold px-3 py-1.5 rounded-lg">
+                            Logout
+                        </button>
+                    </div>
+                `;
+
+                if (isAdmin) {
+                    eventsAdminBadge.classList.remove('hidden');
+                    adminEventFormContainer.classList.remove('hidden');
+                    galleryAdminControls.classList.remove('hidden');
+                } else {
+                    eventsAdminBadge.classList.add('hidden');
+                    adminEventFormContainer.classList.add('hidden');
+                    galleryAdminControls.classList.add('hidden');
+                }
+            } else {
+                desktopStatus.innerHTML = `
+                    <button onclick="openAuthModal()" class="flex items-center gap-1.5 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 px-3.5 py-2 rounded-xl transition border border-stone-200/80 shadow-sm hover:text-sky-500" title="Accedi all'area riservata">
+                        <svg class="w-4 h-4 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        <span>Area Riservata</span>
+                    </button>
+                `;
+
+                mobileStatus.innerHTML = `
+                    <button onclick="closeMobileMenu(); openAuthModal()" class="w-full flex items-center justify-center gap-2 text-center bg-stone-900 text-white py-3 rounded-xl font-bold shadow-md">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        Area Riservata (Accedi)
+                    </button>
+                `;
+
+                eventsAdminBadge.classList.add('hidden');
+                adminEventFormContainer.classList.add('hidden');
+                galleryAdminControls.classList.add('hidden');
+            }
+
+            updateCourseUI();
+            renderEvents();
+        }
+
+        function openAuthModal() {
+            document.getElementById('authAlert').classList.add('hidden');
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function showAuthAlert(msg, isSuccess = false) {
+            const alertBox = document.getElementById('authAlert');
+            alertBox.className = isSuccess 
+                ? "mb-4 p-3 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200"
+                : "mb-4 p-3 rounded-xl text-xs font-semibold bg-red-50 text-red-800 border border-red-200";
+            alertBox.innerText = msg;
+            alertBox.classList.remove('hidden');
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('loginId').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+
+            if (USERS_DB[id] && USERS_DB[id].password === pass) {
+                const user = {
+                    id: id,
+                    role: USERS_DB[id].role,
+                    name: USERS_DB[id].name
+                };
+                loginSuccess(user);
+                return;
+            }
+
+            if (isFirebaseInitialized && firebaseAuth) {
+                const emailToUse = id.includes('@') ? id : `${id}@apulianchain.com`;
+                firebaseAuth.signInWithEmailAndPassword(emailToUse, pass)
+                    .then(userCredential => {
+                        const fbUser = userCredential.user;
+                        const role = (id === 'admin' || fbUser.email.includes('admin')) ? 'admin' : 'utente';
+                        loginSuccess({
+                            id: fbUser.displayName || id,
+                            role: role,
+                            email: fbUser.email
+                        });
+                    })
+                    .catch(err => {
+                        showAuthAlert("Credenziali non valide: " + err.message);
+                    });
+                return;
+            }
+
+            showAuthAlert("ID utente o password non corretti.");
+        }
+
+        function loginSuccess(user) {
+            currentUser = user;
+            localStorage.setItem('apulian_current_user', JSON.stringify(user));
+            showAuthAlert("Accesso riuscito!", true);
+
+            setTimeout(() => {
+                closeAuthModal();
+                updateAuthUI();
+            }, 600);
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('apulian_current_user');
+            if (isFirebaseInitialized && firebaseAuth) {
+                firebaseAuth.signOut().catch(err => console.log(err));
+            }
+            updateAuthUI();
+        }
+
+        /* -------------------------------------------------------------
+           3. CORSI (SBLOCCO PDF)
+        ------------------------------------------------------------- */
+        function initCourses() {
+            updateCourseUI();
+        }
+
+        function updateCourseUI() {
+            const banner = document.getElementById('coursesAccessBanner');
+            const downloadContainers = document.querySelectorAll('.course-download-container');
+
+            if (currentUser) {
+                banner.innerHTML = `
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm animate-fade-in-up">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 font-bold">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-lg text-stone-900">Accesso Corsi Attivo • Programmi Formativi Sbloccati</h4>
+                                <p class="text-xs md:text-sm text-stone-600">Sei autenticato come <strong class="text-stone-900">${currentUser.id}</strong> (${currentUser.role.toUpperCase()}). Puoi scaricare liberamente tutti i percorsi in formato PDF.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="logout()" class="px-4 py-2 border border-stone-200 text-stone-600 hover:bg-white rounded-xl text-xs font-semibold transition">
+                                Disconnetti
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                downloadContainers.forEach(container => {
+                    const pdfPath = container.getAttribute('data-pdf');
+                    container.innerHTML = `
+                        <a href="${pdfPath}" target="_blank" download class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-bold transition shadow-md hover:scale-[1.02] active:scale-[0.98]">
+                            <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Scarica Programma PDF
+                        </a>
+                    `;
+                });
+            } else {
+                banner.innerHTML = `
+                    <div class="bg-amber-50/80 border border-amber-200 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-lg text-stone-900">Area Formativa Riservata</h4>
+                                <p class="text-xs md:text-sm text-stone-600">Accedi con le tue credenziali per consultare e scaricare i programmi dei corsi in formato PDF.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button onclick="openAuthModal()" class="w-full md:w-auto px-6 py-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-bold transition shadow-lg flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                Accedi ai Corsi
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                downloadContainers.forEach(container => {
+                    container.innerHTML = `
+                        <button onclick="openAuthModal()" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-xl text-xs font-semibold transition border border-stone-200">
+                            <svg class="w-3.5 h-3.5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            Accedi per Scaricare PDF
+                        </button>
+                    `;
+                });
+            }
+        }
+
+        /* -------------------------------------------------------------
+           4. SEZIONE EVENTI DINAMICA: SEPARAZIONE PROSSIMI & PASSATI
+        ------------------------------------------------------------- */
+        function initEvents() {
+            if (isFirebaseInitialized && firestoreDb) {
+                firestoreDb.collection('eventi').orderBy('date', 'desc').onSnapshot(snapshot => {
+                    const events = [];
+                    snapshot.forEach(doc => {
+                        events.push({ id: doc.id, ...doc.data() });
+                    });
+                    currentEvents = events.length > 0 ? events : APULIAN_EVENTS_CONFIG;
+                    renderEvents();
+                }, err => {
+                    loadLocalEvents();
+                });
+            } else {
+                loadLocalEvents();
+            }
+        }
+
+        function loadLocalEvents() {
+            const saved = localStorage.getItem('apulian_events_v2');
+            if (saved) {
+                try {
+                    currentEvents = JSON.parse(saved);
+                } catch (e) {
+                    currentEvents = APULIAN_EVENTS_CONFIG;
+                }
+            } else {
+                currentEvents = APULIAN_EVENTS_CONFIG;
+                localStorage.setItem('apulian_events_v2', JSON.stringify(APULIAN_EVENTS_CONFIG));
+            }
+            renderEvents();
+        }
+
+        function saveLocalEvents() {
+            localStorage.setItem('apulian_events_v2', JSON.stringify(currentEvents));
+        }
+
+        function setEventFilter(mode) {
+            eventFilterMode = mode;
+            ['tutti', 'futuri', 'passati'].forEach(m => {
+                const btn = document.getElementById('btnEventFilter_' + m);
+                btn.className = m === mode ? "ac-filter is-active" : "ac-filter";
+            });
+            renderEvents();
+        }
+
+        function isEventPast(ev) {
+            if (typeof ev.isPast === 'boolean') return ev.isPast;
+            const evDate = new Date(ev.date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return evDate < today;
+        }
+
+        function renderEventCard(ev) {
+            const isAdmin = currentUser && currentUser.role === 'admin';
+            const past = isEventPast(ev);
+
+            let formattedDate = ev.date;
+            try {
+                const d = new Date(ev.date);
+                if (!isNaN(d.getTime())) {
+                    formattedDate = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+                }
+            } catch (e) {}
+
+            return `
+                <div class="event-card bg-white rounded-[2rem] p-8 border ${past ? 'border-stone-200/60' : 'border-sky-200/60'} relative flex flex-col justify-between" id="eventCard_${ev.id}">
+                    <div>
+                        <div class="flex items-center justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${past ? 'bg-stone-100 text-stone-600' : 'bg-sky-50 text-sky-600 border border-sky-100'}">
+                                    ${ev.category || 'Evento'}
+                                </span>
+                                ${past ? `
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-stone-100 text-stone-500 border border-stone-200">
+                                        Concluso
+                                    </span>
+                                ` : `
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-600 border border-emerald-200 animate-pulse">
+                                        Prossimamente
+                                    </span>
+                                `}
+                            </div>
+                            
+                            ${isAdmin ? `
+                                <button onclick="handleDeleteEvent('${ev.id}')" class="text-xs bg-red-50 text-red-600 hover:bg-red-100 px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1" title="Elimina evento">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    Elimina
+                                </button>
+                            ` : ''}
+                        </div>
+
+                        <h3 class="font-serif text-2xl font-bold text-stone-900 leading-snug mb-3">${ev.title}</h3>
+                        
+                        <div class="flex items-center gap-2 text-stone-500 text-xs font-semibold mb-2">
+                            <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span>${formattedDate}</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 text-stone-500 text-xs mb-4">
+                            <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>${ev.location}</span>
+                        </div>
+
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">${ev.desc}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        ${past ? `
+                            <button onclick="goToGalleryCategory('${ev.galleryCategory || 'Ostuni 2026'}')" class="text-xs font-bold text-stone-700 hover:text-sky-500 flex items-center gap-1.5 transition">
+                                <span>📸 Guarda le Foto in Galleria</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                            <span class="text-[10px] font-bold text-stone-400">Archivio</span>
+                        ` : `
+                            <a href="${ev.link || '#contatti'}" class="text-xs font-bold text-sky-600 hover:text-sky-700 flex items-center gap-1.5 transition">
+                                <span>Partecipa / Maggiori info</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                            </a>
+                            <span class="relative flex w-2.5 h-2.5" aria-hidden="true">
+                                <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping"></span>
+                                <span class="relative inline-flex w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                            </span>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEvents() {
+            const container = document.getElementById('eventsDisplayWrapper');
+            const noEvents = document.getElementById('noEventsMessage');
+
+            const futureEvents = currentEvents.filter(ev => !isEventPast(ev));
+            const pastEvents = currentEvents.filter(ev => isEventPast(ev));
+
+            let html = '';
+
+            if (eventFilterMode === 'tutti') {
+                if (futureEvents.length > 0) {
+                    html += `
+                        <div>
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+                                <h3 class="font-serif text-2xl font-bold text-stone-900">In Programma (Prossimi Appuntamenti)</h3>
+                                <span class="text-xs text-stone-400 font-bold">(${futureEvents.length})</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                ${futureEvents.map(ev => renderEventCard(ev)).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (pastEvents.length > 0) {
+                    html += `
+                        <div class="pt-6 border-t border-stone-200/80">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-3 h-3 rounded-full bg-stone-400"></span>
+                                <h3 class="font-serif text-2xl font-bold text-stone-900">Eventi Svolti (Archivio Storico Ostuni)</h3>
+                                <span class="text-xs text-stone-400 font-bold">(${pastEvents.length})</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                ${pastEvents.map(ev => renderEventCard(ev)).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            } else if (eventFilterMode === 'futuri') {
+                if (futureEvents.length > 0) {
+                    html = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${futureEvents.map(ev => renderEventCard(ev)).join('')}
+                        </div>
+                    `;
+                }
+            } else if (eventFilterMode === 'passati') {
+                if (pastEvents.length > 0) {
+                    html = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${pastEvents.map(ev => renderEventCard(ev)).join('')}
+                        </div>
+                    `;
+                }
+            }
+
+            if (!html.trim()) {
+                container.innerHTML = '';
+                noEvents.classList.remove('hidden');
+            } else {
+                noEvents.classList.add('hidden');
+                container.innerHTML = html;
+            }
+        }
+
+        function goToGalleryCategory(cat) {
+            filterGallery(cat);
+            const gal = document.getElementById('galleria');
+            if (gal) gal.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleCreateEvent(e) {
+            e.preventDefault();
+            const title = document.getElementById('newEventTitle').value.trim();
+            const date = document.getElementById('newEventDate').value;
+            const location = document.getElementById('newEventLocation').value.trim();
+            const category = document.getElementById('newEventCategory').value;
+            const desc = document.getElementById('newEventDesc').value.trim();
+
+            const evDate = new Date(date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const isPast = evDate < today;
+
+            const newEvent = {
+                title,
+                date,
+                location,
+                category,
+                desc,
+                isPast,
+                link: isPast ? '#galleria' : '#contatti',
+                createdAt: new Date().toISOString()
+            };
+
+            if (isFirebaseInitialized && firestoreDb) {
+                firestoreDb.collection('eventi').add(newEvent).then(() => {
+                    document.getElementById('addEventForm').reset();
+                    alert("Evento pubblicato su Firestore!");
+                }).catch(err => {
+                    alert("Errore Firestore: " + err.message);
+                });
+            } else {
+                newEvent.id = "ev_" + Date.now();
+                currentEvents.unshift(newEvent);
+                saveLocalEvents();
+                renderEvents();
+                document.getElementById('addEventForm').reset();
+                alert("Evento pubblicato con successo!");
+            }
+        }
+
+        function handleDeleteEvent(id) {
+            if (!confirm("Sei sicuro di voler rimuovere questo evento?")) return;
+
+            if (isFirebaseInitialized && firestoreDb) {
+                firestoreDb.collection('eventi').doc(id).delete().catch(err => alert("Errore eliminazione: " + err.message));
+            } else {
+                currentEvents = currentEvents.filter(ev => ev.id !== id);
+                saveLocalEvents();
+                renderEvents();
+            }
+        }
+
+        /* -------------------------------------------------------------
+           5. GALLERIA MULTIMEDIALE (30 FOTO REALI, 10 NEL CAROSELLO)
+        ------------------------------------------------------------- */
+        function initGallery() {
+            const savedGallery = localStorage.getItem('apulian_gallery_v2');
+            if (savedGallery && !savedGallery.includes('picsum.photos')) {
+                try {
+                    currentGallery = JSON.parse(savedGallery);
+                } catch (e) {
+                    currentGallery = APULIAN_GALLERY_CONFIG;
+                }
+            } else {
+                currentGallery = APULIAN_GALLERY_CONFIG;
+                localStorage.setItem('apulian_gallery_v2', JSON.stringify(APULIAN_GALLERY_CONFIG));
+            }
+
+            renderCarousel();
+            renderCategoryFilters();
+            renderGalleryGrid();
+            initLightboxEvents();
+        }
+
+        function optimizedImage(url, width = 1200) {
+            if (!url) return url;
+            const source = String(url);
+            const file = source.split('/').pop();
+            const stem = file.replace(/\.[^.]+$/, '');
+            let prefix = null;
+            if (source.includes('01-08-2026')) prefix = '2026';
+            else if (source.includes('30-08-2025')) prefix = '2025';
+            if (!prefix || !/\.(jpe?g|png)$/i.test(file)) return source;
+            return `./img/opt/gallery/${prefix}-${stem}-${width}.webp`;
+        }
+
+        function optimizedSrcSet(url) {
+            if (optimizedImage(url, 600) === url) return '';
+            return `${optimizedImage(url, 600)} 600w, ${optimizedImage(url, 1200)} 1200w, ${optimizedImage(url, 1800)} 1800w`;
+        }
+
+        function saveLocalGallery() {
+            localStorage.setItem('apulian_gallery_v2', JSON.stringify(currentGallery));
+        }
+
+        function toggleAdminGalleryForm() {
+            document.getElementById('adminGalleryForm').classList.toggle('hidden');
+        }
+
+        function renderCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const dotsContainer = document.getElementById('carouselDots');
+            
+            // Seleziona esattamente 10 foto in evidenza per il carosello
+            const featuredItems = currentGallery.filter(item => item.featured);
+            const carouselList = featuredItems.length >= 10 ? featuredItems.slice(0, 10) : currentGallery.slice(0, 10);
+
+            track.innerHTML = carouselList.map((item, idx) => `
+                <div class="w-full flex-shrink-0 h-full relative cursor-pointer" onclick="openLightboxByItem('${item.id}')">
+                    <img src="${optimizedImage(item.url, 1200)}" srcset="${optimizedSrcSet(item.url)}" sizes="100vw" alt="${item.title}" class="w-full h-full object-cover" loading="${idx === 0 ? 'eager' : 'lazy'}" decoding="async" ${idx === 0 ? 'fetchpriority="high"' : ''}>
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/30 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 sm:bottom-12 sm:left-12 max-w-xl text-white">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sky-400 text-stone-950 mb-3 shadow-md">
+                            ${item.category}
+                        </span>
+                        <h3 class="font-serif text-2xl sm:text-4xl font-bold leading-tight mb-2 drop-shadow-md">${item.title}</h3>
+                        <p class="text-xs sm:text-sm text-stone-300 flex items-center gap-2">
+                            <span>🔍 Clicca per ingrandire a schermo intero (Slide ${idx + 1} di ${carouselList.length})</span>
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+
+            dotsContainer.innerHTML = carouselList.map((_, idx) => `
+                <button onclick="setCarouselSlide(${idx})" class="w-2.5 h-2.5 rounded-full transition-all ${idx === activeCarouselIndex ? 'bg-white w-7' : 'bg-white/40'}" aria-label="Slide ${idx + 1}"></button>
+            `).join('');
+
+            updateCarouselPosition();
+
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                nextSlide();
+            }, 6000);
+        }
+
+        function updateCarouselPosition() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.getElementById('carouselDots').querySelectorAll('button');
+            track.style.transform = `translateX(-${activeCarouselIndex * 100}%)`;
+
+            dots.forEach((dot, idx) => {
+                if (idx === activeCarouselIndex) {
+                    dot.className = "w-7 h-2.5 rounded-full bg-white transition-all";
+                } else {
+                    dot.className = "w-2.5 h-2.5 rounded-full bg-white/40 transition-all";
+                }
+            });
+        }
+
+        function prevSlide() {
+            const count = Math.min(10, currentGallery.length);
+            activeCarouselIndex = (activeCarouselIndex - 1 + count) % count;
+            updateCarouselPosition();
+        }
+
+        function nextSlide() {
+            const count = Math.min(10, currentGallery.length);
+            activeCarouselIndex = (activeCarouselIndex + 1) % count;
+            updateCarouselPosition();
+        }
+
+        function setCarouselSlide(idx) {
+            activeCarouselIndex = idx;
+            updateCarouselPosition();
+        }
+
+        function renderCategoryFilters() {
+            const container = document.getElementById('galleryCategoryFilterContainer');
+            const categories = ["Tutti", ...new Set(currentGallery.map(item => item.category))];
+
+            container.innerHTML = categories.map(cat => `
+                <button onclick="filterGallery('${cat}')" class="ac-filter ${cat === selectedCategory ? 'is-active' : ''}" aria-pressed="${cat === selectedCategory}">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function filterGallery(category) {
+            selectedCategory = category;
+            renderCategoryFilters();
+            renderGalleryGrid();
+        }
+
+        function renderGalleryGrid() {
+            const grid = document.getElementById('galleryGrid');
+            currentFilteredGallery = selectedCategory === "Tutti" 
+                ? currentGallery 
+                : currentGallery.filter(item => item.category === selectedCategory);
+
+            grid.innerHTML = currentFilteredGallery.map((item, index) => `
+                <div class="gallery-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-stone-100 cursor-pointer transition-all duration-300" onclick="openLightboxByIndex(${index})">
+                    <img src="${optimizedImage(item.url, 600)}" srcset="${optimizedSrcSet(item.url)}" sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 46vw, 92vw" alt="${item.title}" width="600" height="450" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                    <div class="gallery-overlay absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                        <span class="gallery-cat text-[10px] font-bold uppercase tracking-wider mb-1">${item.category}</span>
+                        <h4 class="font-serif font-bold text-base leading-tight">${item.title}</h4>
+                        <div class="mt-2 flex items-center gap-1.5 text-xs text-stone-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path></svg>
+                            <span>Apri a schermo intero</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleAddGalleryItem(e) {
+            e.preventDefault();
+            const url = document.getElementById('newImgUrl').value.trim();
+            const title = document.getElementById('newImgTitle').value.trim();
+            const category = document.getElementById('newImgCategory').value.trim();
+
+            const newItem = {
+                id: "img_" + Date.now(),
+                url,
+                title,
+                category,
+                featured: false
+            };
+
+            currentGallery.unshift(newItem);
+            saveLocalGallery();
+            renderCategoryFilters();
+            renderGalleryGrid();
+            document.getElementById('adminGalleryForm').reset();
+            toggleAdminGalleryForm();
+            alert("Immagine aggiunta alla categoria: " + category);
+        }
+
+        /* -------------------------------------------------------------
+           6. LIGHTBOX NATIVO
+        ------------------------------------------------------------- */
+        function initLightboxEvents() {
+            window.addEventListener('keydown', (e) => {
+                const modal = document.getElementById('lightboxModal');
+                if (!modal.classList.contains('active-lightbox')) return;
+
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevLightbox();
+                if (e.key === 'ArrowRight') nextLightbox();
+            });
+        }
+
+        function openLightboxByIndex(index) {
+            lightboxCurrentIndex = index;
+            updateLightboxContent();
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('hidden-lightbox');
+            modal.classList.add('active-lightbox');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openLightboxByItem(itemId) {
+            currentFilteredGallery = currentGallery;
+            const idx = currentFilteredGallery.findIndex(item => item.id === itemId);
+            if (idx !== -1) {
+                openLightboxByIndex(idx);
+            }
+        }
+
+        function updateLightboxContent() {
+            if (!currentFilteredGallery || currentFilteredGallery.length === 0) return;
+            const item = currentFilteredGallery[lightboxCurrentIndex];
+            
+            const image = document.getElementById('lightboxImg');
+            image.src = optimizedImage(item.url, 1800);
+            image.alt = item.title;
+            document.getElementById('lightboxTitle').innerText = item.title;
+            document.getElementById('lightboxCategory').innerText = item.category;
+            document.getElementById('lightboxCounter').innerText = `${lightboxCurrentIndex + 1} di ${currentFilteredGallery.length}`;
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('active-lightbox');
+            modal.classList.add('hidden-lightbox');
+            document.body.style.overflow = '';
+        }
+
+        function handleLightboxBgClick(e) {
+            closeLightbox();
+        }
+
+        function prevLightbox(e) {
+            if (e) e.stopPropagation();
+            lightboxCurrentIndex = (lightboxCurrentIndex - 1 + currentFilteredGallery.length) % currentFilteredGallery.length;
+            updateLightboxContent();
+        }
+
+        function nextLightbox(e) {
+            if (e) e.stopPropagation();
+            lightboxCurrentIndex = (lightboxCurrentIndex + 1) % currentFilteredGallery.length;
+            updateLightboxContent();
+        }
+
+        /* -------------------------------------------------------------
+           7. SLIDER TEAM CONTINUO
+        ------------------------------------------------------------- */
+        function initTeamScroller() {
+            const container = document.getElementById('teamContainer');
+            if (!container) return;
+
+            const doubledMembers = [...TEAM_MEMBERS, ...TEAM_MEMBERS];
+
+            container.innerHTML = doubledMembers.map(m => `
+                <div class="w-56 md:w-64 flex-shrink-0 group text-center">
+                    <div class="relative overflow-hidden rounded-full aspect-square mb-6 shadow-xl border-4 border-white mx-auto w-48 md:w-56">
+                        <img src="${m.img}" alt="${m.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                        <a href="${m.linkedin}" target="_blank" rel="noopener noreferrer" class="absolute inset-0 bg-stone-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" title="Profilo LinkedIn"></a>
+                    </div>
+                    <h3 class="font-serif text-xl md:text-2xl font-bold text-stone-900 leading-tight">${m.name}</h3>
+                    <p class="text-sky-400 font-medium text-xs md:text-sm uppercase tracking-wide mt-1">${m.role}</p>
+                </div>
+            `).join('');
+        }
+
+        /* -------------------------------------------------------------
+           8. FORM CONTATTI
+        ------------------------------------------------------------- */
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('contactBtn');
+            const form = e.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const message = form.message.value;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span>Apertura client mail...</span>`;
+
+            const mailtoUri = `mailto:apulianchain2025@gmail.com?subject=Contatto da ApulianChain - ${encodeURIComponent(name)}&body=${encodeURIComponent("Nome: " + name + "\nEmail: " + email + "\n\nMessaggio:\n" + message)}`;
+            
+            window.location.href = mailtoUri;
+
+            setTimeout(() => {
+                btn.innerHTML = `<span>Messaggio Pronto! ✓</span>`;
+                form.reset();
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = `<span>Invia Messaggio</span><svg class="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-4-7 7 7-7 7"></path></svg>`;
+                }, 3500);
+            }, 800);
+        }
+
+    </script>
 </body>
 
 </html>
